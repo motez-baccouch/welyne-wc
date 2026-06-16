@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Lang, tr } from "@/lib/i18n";
 
-export default function SyncButton() {
+export default function SyncButton({ lang = "en" }: { lang?: Lang }) {
   const router = useRouter();
+  const t = (k: string) => tr(lang, k);
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +31,7 @@ export default function SyncButton() {
           </div>
         </div>
         <button className="btn ghost" onClick={sync} disabled={loading}>
-          {loading ? "Syncing…" : "Sync results"}
+          {loading ? t("sync.syncing") : t("sync.button")}
         </button>
       </div>
       {msg && <div className="mini-note" style={{ marginTop: 8 }}>{msg}</div>}

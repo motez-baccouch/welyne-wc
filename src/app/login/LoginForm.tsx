@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BallDoodle } from "@/components/Doodles";
+import { Lang, tr } from "@/lib/i18n";
 
-export default function LoginForm() {
+export default function LoginForm({ lang = "en" }: { lang?: Lang }) {
   const router = useRouter();
+  const t = (k: string) => tr(lang, k);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
@@ -26,7 +28,7 @@ export default function LoginForm() {
       router.push("/");
       router.refresh();
     } else {
-      setErr(data.error ?? "Login failed.");
+      setErr(data.error ?? t("login.failed"));
     }
   }
 
@@ -40,20 +42,20 @@ export default function LoginForm() {
         <h1>
           <span className="we">WE</span> predict.
         </h1>
-        <p>Welyne World Cup 2026 prediction game. Sign in with your name.</p>
+        <p>{t("login.sub")}</p>
         <form onSubmit={submit}>
           <div className="field">
-            <label>Name (username)</label>
+            <label>{t("login.name")}</label>
             <input
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="your name"
+              placeholder={t("login.nameph")}
               autoCapitalize="none"
               autoFocus
             />
           </div>
           <div className="field">
-            <label>Password</label>
+            <label>{t("login.password")}</label>
             <input
               type="password"
               value={password}
@@ -63,7 +65,7 @@ export default function LoginForm() {
           </div>
           {err && <div className="err">{err}</div>}
           <button className="btn primary" style={{ width: "100%", justifyContent: "center" }} disabled={loading}>
-            {loading ? "Signing in…" : "Kick off →"}
+            {loading ? t("login.signingin") : t("login.kickoff")}
           </button>
         </form>
       </div>

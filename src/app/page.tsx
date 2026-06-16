@@ -7,12 +7,14 @@ import MatchCard from "@/components/MatchCard";
 import ChampionPicker from "@/components/ChampionPicker";
 import SyncButton from "@/components/SyncButton";
 import { BallDoodle } from "@/components/Doodles";
+import { getT } from "@/lib/i18n.server";
 
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
   const session = await getSession();
   if (!session) redirect("/login");
+  const { lang, t } = getT();
 
   const me = await prisma.user.findUnique({
     where: { id: session.id },
@@ -72,56 +74,54 @@ export default async function Dashboard() {
         <div className="hero-doodle">
           <BallDoodle size={140} />
         </div>
-        <div className="label">Welcome back</div>
+        <div className="label">{t("dash.welcome")}</div>
         <h1 className="page">
-          Hi {me.name.split(" ")[0]} <span className="we">⚽</span>
+          {t("dash.hi", { name: me.name.split(" ")[0] })} <span className="we">⚽</span>
         </h1>
-        <p className="lead">
-          Predict every World Cup 2026 match. Exact score = 5 pts · goal difference = 3 · correct
-          outcome = 2. Knockouts count 1.5×.
-        </p>
+        <p className="lead">{t("dash.lead")}</p>
       </div>
 
       <div className="tiles">
         <div className="tile">
           <div className="n">{me.points}</div>
-          <div className="l">Your points</div>
+          <div className="l">{t("dash.points")}</div>
         </div>
         <div className="tile">
           <div className="n">#{rank}</div>
-          <div className="l">Rank of {totalUsers}</div>
+          <div className="l">{t("dash.rankof", { n: totalUsers })}</div>
         </div>
         <div className="tile">
           <div className="n">{myPredCount}</div>
-          <div className="l">Predictions made</div>
+          <div className="l">{t("dash.predsmade")}</div>
         </div>
         <div className="tile">
           <div className="n">
             {finishedCount}
             <span style={{ color: "var(--muted)", fontSize: "1.2rem" }}>/{totalMatches}</span>
           </div>
-          <div className="l">Matches played</div>
+          <div className="l">{t("dash.played")}</div>
         </div>
       </div>
 
       <ChampionPicker
-        teams={teams.map((t) => ({ id: t.id, name: t.name, flag: t.flag, odds: t.odds }))}
+        teams={teams.map((tm) => ({ id: tm.id, name: tm.name, flag: tm.flag, odds: tm.odds }))}
         current={me.championTeamId}
         locked={championLocked}
+        lang={lang}
       />
 
-      {me.isAdmin && <SyncButton />}
+      {me.isAdmin && <SyncButton lang={lang} />}
 
       <div className="row-between">
         <h2 className="sec" style={{ margin: "30px 0 0" }}>
-          ⏱ Predict next
+          {t("dash.predictnext")}
         </h2>
         <Link href="/matches" className="pill pts">
-          All matches →
+          {t("dash.allmatches")}
         </Link>
       </div>
       {upcoming.length === 0 ? (
-        <div className="note-box">No open matches right now — check back soon or browse all matches.</div>
+        <div className="note-box">{t("dash.noopen")}</div>
       ) : (
         <div className="match-grid" style={{ marginTop: 16 }}>
           {upcoming.map((m) => (
@@ -131,14 +131,15 @@ export default async function Dashboard() {
               prediction={vmPred(m.id)}
               loggedIn
               isAdmin={me.isAdmin}
+              lang={lang}
             />
           ))}
         </div>
       )}
 
-      <h2 className="sec">📋 Latest results</h2>
+      <h2 className="sec">{t("dash.latest")}</h2>
       {recent.length === 0 ? (
-        <div className="note-box">No matches have finished yet.</div>
+        <div className="note-box">{t("dash.nofinished")}</div>
       ) : (
         <div className="match-grid">
           {recent.map((m) => (
@@ -148,6 +149,7 @@ export default async function Dashboard() {
               prediction={vmPred(m.id)}
               loggedIn
               isAdmin={me.isAdmin}
+              lang={lang}
             />
           ))}
         </div>

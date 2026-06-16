@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getT } from "@/lib/i18n.server";
 
 export const dynamic = "force-dynamic";
 
@@ -57,6 +58,7 @@ function Tie({ m }: { m: M }) {
 export default async function BracketPage() {
   const session = await getSession();
   if (!session) redirect("/login");
+  const { t } = getT();
 
   const matches = (await prisma.match.findMany({
     where: { stage: { not: "GROUP" } },
@@ -66,22 +68,19 @@ export default async function BracketPage() {
 
   const byStage = (st: string) => matches.filter((m) => m.stage === st);
   const cols: { title: string; stage: string }[] = [
-    { title: "Round of 32", stage: "R32" },
-    { title: "Round of 16", stage: "R16" },
-    { title: "Quarter-finals", stage: "QF" },
-    { title: "Semi-finals", stage: "SF" },
-    { title: "Final", stage: "FINAL" },
+    { title: t("stage.R32"), stage: "R32" },
+    { title: t("stage.R16"), stage: "R16" },
+    { title: t("stage.QFs"), stage: "QF" },
+    { title: t("stage.SFs"), stage: "SF" },
+    { title: t("stage.FINAL"), stage: "FINAL" },
   ];
   const third = byStage("THIRD");
 
   return (
     <main className="wrap">
-      <div className="label">Knockout phase</div>
-      <h1 className="page">🏆 The road to MetLife</h1>
-      <p className="lead">
-        The bracket fills in as the group stage finishes. Slots show the qualification path until
-        teams are confirmed; once both teams are known you can predict each tie on the Matches page.
-      </p>
+      <div className="label">{t("bracket.eyebrow")}</div>
+      <h1 className="page">{t("bracket.title")}</h1>
+      <p className="lead">{t("bracket.lead")}</p>
 
       <div className="bracket" style={{ marginTop: 24 }}>
         {cols.map((c) => (
@@ -96,7 +95,7 @@ export default async function BracketPage() {
 
       {third.length > 0 && (
         <>
-          <h2 className="sec">🥉 Third-place play-off</h2>
+          <h2 className="sec">{t("bracket.third")}</h2>
           <div style={{ maxWidth: 280 }}>
             <Tie m={third[0]} />
           </div>

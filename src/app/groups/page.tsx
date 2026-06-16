@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { computeGroupStandings } from "@/lib/standings";
+import { getT } from "@/lib/i18n.server";
 
 export const dynamic = "force-dynamic";
 
@@ -10,18 +11,16 @@ const GROUPS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
 export default async function GroupsPage() {
   const session = await getSession();
   if (!session) redirect("/login");
+  const { t } = getT();
 
   const teams = await prisma.team.findMany();
   const matches = await prisma.match.findMany({ where: { stage: "GROUP" } });
 
   return (
     <main className="wrap">
-      <div className="label">Live standings</div>
-      <h1 className="page">Group stage</h1>
-      <p className="lead">
-        Top two of each group qualify (green). The eight best third-placed teams (orange) also
-        advance to the Round of 32. Tables update as results come in.
-      </p>
+      <div className="label">{t("groups.eyebrow")}</div>
+      <h1 className="page">{t("groups.title")}</h1>
+      <p className="lead">{t("groups.lead")}</p>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(330px,1fr))", gap: 18, marginTop: 24 }}>
         {GROUPS.map((g) => {
@@ -33,19 +32,19 @@ export default async function GroupsPage() {
           return (
             <div key={g}>
               <div className="matchday-h" style={{ marginTop: 0 }}>
-                Group {g}
+                {t("matches.group", { g })}
               </div>
               <div className="tbl-wrap">
                 <table className="data">
                   <thead>
                     <tr>
-                      <th>Team</th>
-                      <th>P</th>
-                      <th>W</th>
-                      <th>D</th>
-                      <th>L</th>
-                      <th>GD</th>
-                      <th>Pts</th>
+                      <th>{t("groups.th.team")}</th>
+                      <th>{t("groups.th.p")}</th>
+                      <th>{t("groups.th.w")}</th>
+                      <th>{t("groups.th.d")}</th>
+                      <th>{t("groups.th.l")}</th>
+                      <th>{t("groups.th.gd")}</th>
+                      <th>{t("groups.th.pts")}</th>
                     </tr>
                   </thead>
                   <tbody>

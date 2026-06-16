@@ -2,12 +2,14 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Avatar from "@/components/Avatar";
+import { getT } from "@/lib/i18n.server";
 
 export const dynamic = "force-dynamic";
 
 export default async function LeaderboardPage() {
   const session = await getSession();
   if (!session) redirect("/login");
+  const { t } = getT();
 
   const users = await prisma.user.findMany({
     include: { predictions: true, championTeam: true },
@@ -16,12 +18,9 @@ export default async function LeaderboardPage() {
 
   return (
     <main className="wrap">
-      <div className="label">Standings</div>
-      <h1 className="page">🏅 Leaderboard</h1>
-      <p className="lead">
-        The Welyne table. Points come from match predictions plus a +15 bonus for correctly calling
-        the champion.
-      </p>
+      <div className="label">{t("lb.eyebrow")}</div>
+      <h1 className="page">{t("lb.title")}</h1>
+      <p className="lead">{t("lb.lead")}</p>
 
       <div className="tbl-wrap" style={{ marginTop: 22 }}>
         {users.map((u, i) => {
@@ -35,10 +34,10 @@ export default async function LeaderboardPage() {
                 <div style={{ minWidth: 0 }}>
                   <div className="nm">
                     {u.name}
-                    {u.id === session.id ? " · you" : ""}
+                    {u.id === session.id ? t("lb.you") : ""}
                   </div>
                   <div className="ro">
-                    {u.role} · {made} picks · {exact} exact
+                    {u.role} · {t("lb.picks", { n: made })} · {t("lb.exact", { n: exact })}
                     {u.championTeam ? ` · 🏆 ${u.championTeam.flag}` : ""}
                   </div>
                 </div>

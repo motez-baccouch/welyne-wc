@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Lang, tr } from "@/lib/i18n";
 
 export type MatchVM = {
   id: number;
@@ -22,19 +23,9 @@ export type MatchVM = {
   teamsKnown: boolean;
 };
 
-const STAGE_LABEL: Record<string, string> = {
-  GROUP: "Group",
-  R32: "Round of 32",
-  R16: "Round of 16",
-  QF: "Quarter-final",
-  SF: "Semi-final",
-  THIRD: "Third place",
-  FINAL: "Final",
-};
-
-function fmtKickoff(iso: string) {
+function fmtKickoff(iso: string, lang: Lang) {
   const d = new Date(iso);
-  return d.toLocaleString(undefined, {
+  return d.toLocaleString(lang === "fr" ? "fr-FR" : undefined, {
     weekday: "short",
     month: "short",
     day: "numeric",
@@ -48,13 +39,16 @@ export default function MatchCard({
   prediction,
   loggedIn,
   isAdmin,
+  lang = "en",
 }: {
   match: MatchVM;
   prediction: { home: number; away: number; points: number; scored: boolean } | null;
   loggedIn: boolean;
   isAdmin: boolean;
+  lang?: Lang;
 }) {
   const router = useRouter();
+  const t = (k: string, v?: Record<string, string | number>) => tr(lang, k, v);
   const [home, setHome] = useState<string>(prediction ? String(prediction.home) : "");
   const [away, setAway] = useState<string>(prediction ? String(prediction.away) : "");
   const [saving, setSaving] = useState(false);
@@ -76,7 +70,7 @@ export default function MatchCard({
     const h = parseInt(home, 10);
     const a = parseInt(away, 10);
     if (Number.isNaN(h) || Number.isNaN(a)) {
-      setErr("Enter both scores.");
+      setErr(t("mc.enterboth"));
       return;
     }
     setSaving(true);
@@ -92,7 +86,7 @@ export default function MatchCard({
       setTimeout(() => setSaved(false), 1800);
       router.refresh();
     } else {
-      setErr(data.error ?? "Could not save.");
+      setErr(data.error ?? t("mc.couldnotsave"));
     }
   }
 
@@ -144,6 +138,7 @@ export default function MatchCard({
           ) : (
             <span className="nm">{placeholder ?? "TBD"}</span>
           )}
+          {/* flag rendered above for known teams */}
         </div>
         {finished ? (
           <span className="finalscore" style={winner ? { color: "var(--win)" } : undefined}>
@@ -172,12 +167,12 @@ export default function MatchCard({
     <div className="mcard">
       <div className="meta">
         <span className="stage-tag">
-          {STAGE_LABEL[match.stage] ?? match.stage}
+          {tr(lang, `stage.${match.stage}`)}
           {match.groupName ? ` ${match.groupName}` : ""}
         </span>
         <span className="status">
           {live && <span className="dot-live" />}
-          {finished ? "Full time" : live ? "Live" : fmtKickoff(match.kickoff)}
+          {finished ? t("mc.fulltime") : live ? t("mc.live") : fmtKickoff(match.kickoff, lang)}
         </span>
       </div>
 
@@ -209,32 +204,32 @@ export default function MatchCard({
         <span style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {finished && prediction && (
             <span className={`pill ${prediction.points > 0 ? "win" : "locked"}`}>
-              {prediction.home}-{prediction.away} · {prediction.points} pts
+              {t("mc.ptsline", { h: prediction.home, a: prediction.away, pts: prediction.points })}
             </span>
           )}
-          {finished && !prediction && <span className="pill locked">No pick</span>}
+          {finished && !prediction && <span className="pill locked">{t("mc.nopick")}</span>}
           {!finished && locked && match.teamsKnown && (
             <span className="pill locked">
-              {prediction ? `Your pick ${prediction.home}-${prediction.away}` : "Locked"}
+              {prediction ? t("mc.yourpick", { h: prediction.home, a: prediction.away }) : t("mc.locked")}
             </span>
           )}
           {canPredict && (
             <button className={`save-btn ${saved ? "saved" : ""}`} onClick={save} disabled={saving}>
-              {saved ? "Saved ✓" : saving ? "Saving…" : prediction ? "Update" : "Predict"}
+              {saved ? t("mc.saved") : saving ? t("mc.saving") : prediction ? t("mc.update") : t("mc.predict")}
             </button>
           )}
-          {!match.teamsKnown && <span className="pill locked">Awaiting teams</span>}
+          {!match.teamsKnown && <span className="pill locked">{t("mc.awaiting")}</span>}
         </span>
       </div>
 
       {isAdmin && match.teamsKnown && (
         <div className="admin-row">
-          <span className="tag">Admin result</span>
+          <span className="tag">{t("mc.adminresult")}</span>
           <input value={aHome} onChange={(e) => setAHome(e.target.value.replace(/[^0-9]/g, "").slice(0, 2))} />
           <span>–</span>
           <input value={aAway} onChange={(e) => setAAway(e.target.value.replace(/[^0-9]/g, "").slice(0, 2))} />
           <button className="save-btn" onClick={adminSave}>
-            Set FT
+            {t("mc.setft")}
           </button>
         </div>
       )}

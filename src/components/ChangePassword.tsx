@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { Lang, tr } from "@/lib/i18n";
 
-export default function ChangePassword() {
+export default function ChangePassword({ lang = "en" }: { lang?: Lang }) {
+  const t = (k: string) => tr(lang, k);
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState("");
   const [next, setNext] = useState("");
@@ -14,7 +16,7 @@ export default function ChangePassword() {
     e.preventDefault();
     setMsg(null);
     if (next !== confirm) {
-      setMsg({ ok: false, text: "New passwords don't match." });
+      setMsg({ ok: false, text: t("pw.nomatch") });
       return;
     }
     setLoading(true);
@@ -26,19 +28,19 @@ export default function ChangePassword() {
     const data = await res.json();
     setLoading(false);
     if (data.ok) {
-      setMsg({ ok: true, text: "Password updated ✓" });
+      setMsg({ ok: true, text: t("pw.updated") });
       setCurrent("");
       setNext("");
       setConfirm("");
     } else {
-      setMsg({ ok: false, text: data.error ?? "Could not update password." });
+      setMsg({ ok: false, text: data.error ?? t("pw.failed") });
     }
   }
 
   if (!open) {
     return (
       <button className="btn ghost" onClick={() => setOpen(true)} style={{ marginTop: 8 }}>
-        Change password
+        {t("pw.change")}
       </button>
     );
   }
@@ -46,24 +48,24 @@ export default function ChangePassword() {
   return (
     <form onSubmit={submit} className="pw-form">
       <div className="field">
-        <label>Current password</label>
+        <label>{t("pw.current")}</label>
         <input type="password" value={current} onChange={(e) => setCurrent(e.target.value)} autoFocus />
       </div>
       <div className="field">
-        <label>New password</label>
-        <input type="password" value={next} onChange={(e) => setNext(e.target.value)} placeholder="at least 6 characters" />
+        <label>{t("pw.new")}</label>
+        <input type="password" value={next} onChange={(e) => setNext(e.target.value)} placeholder={t("pw.newph")} />
       </div>
       <div className="field">
-        <label>Confirm new password</label>
+        <label>{t("pw.confirm")}</label>
         <input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
       </div>
       {msg && <div className={msg.ok ? "ok-msg" : "err"}>{msg.text}</div>}
       <div style={{ display: "flex", gap: 10, marginTop: 6 }}>
         <button className="btn primary" disabled={loading}>
-          {loading ? "Saving…" : "Save"}
+          {loading ? t("pw.saving") : t("pw.save")}
         </button>
         <button type="button" className="btn ghost" onClick={() => setOpen(false)}>
-          Cancel
+          {t("pw.cancel")}
         </button>
       </div>
     </form>

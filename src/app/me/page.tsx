@@ -4,21 +4,13 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { TrophyDoodle } from "@/components/Doodles";
 import ChangePassword from "@/components/ChangePassword";
+import { getT } from "@/lib/i18n.server";
+import { tr, Lang } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
-const STAGE_LABEL: Record<string, string> = {
-  GROUP: "Group",
-  R32: "Round of 32",
-  R16: "Round of 16",
-  QF: "Quarter-final",
-  SF: "Semi-final",
-  THIRD: "Third place",
-  FINAL: "Final",
-};
-
-function fmt(d: Date) {
-  return new Date(d).toLocaleString(undefined, {
+function fmt(d: Date, lang: Lang) {
+  return new Date(d).toLocaleString(lang === "fr" ? "fr-FR" : undefined, {
     month: "short",
     day: "numeric",
     hour: "2-digit",
@@ -29,6 +21,7 @@ function fmt(d: Date) {
 export default async function MePage() {
   const session = await getSession();
   if (!session) redirect("/login");
+  const { lang, t } = getT();
 
   const me = await prisma.user.findUnique({
     where: { id: session.id },
@@ -59,42 +52,41 @@ export default async function MePage() {
       <div className="lb-row" style={{ gridTemplateColumns: "1fr auto auto", gap: 14 }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ fontWeight: 700, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-            <span>
-              {m.homeTeam ? `${m.homeTeam.flag} ${m.homeTeam.name}` : m.homePlaceholder}
-            </span>
+            <span>{m.homeTeam ? `${m.homeTeam.flag} ${m.homeTeam.name}` : m.homePlaceholder}</span>
             <span style={{ color: "var(--muted)" }}>vs</span>
-            <span>
-              {m.awayTeam ? `${m.awayTeam.flag} ${m.awayTeam.name}` : m.awayPlaceholder}
-            </span>
+            <span>{m.awayTeam ? `${m.awayTeam.flag} ${m.awayTeam.name}` : m.awayPlaceholder}</span>
           </div>
           <div className="ro" style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)", marginTop: 3 }}>
-            {STAGE_LABEL[m.stage]}
-            {m.groupName ? ` ${m.groupName}` : ""} · {fmt(m.kickoff)}
+            {tr(lang, `stage.${m.stage}`)}
+            {m.groupName ? ` ${m.groupName}` : ""} · {fmt(m.kickoff, lang)}
           </div>
         </div>
         <div style={{ textAlign: "center", fontVariantNumeric: "tabular-nums" }}>
           <div style={{ fontFamily: "var(--mono)", fontSize: 9, letterSpacing: ".1em", color: "var(--muted)" }}>
-            PICK
+            {t("me.pick")}
           </div>
           <div style={{ fontWeight: 800 }}>
             {p.homePred}–{p.awayPred}
           </div>
           {fin && (
             <div style={{ fontSize: 11, color: "var(--muted)" }}>
-              FT {m.homeScore}–{m.awayScore}
+              {t("me.ft", { h: m.homeScore ?? "", a: m.awayScore ?? "" })}
             </div>
           )}
         </div>
         <div style={{ minWidth: 64, textAlign: "right" }}>
           {fin ? (
-            <span className={`pill ${p.points > 0 ? "win" : "locked"}`}>{p.points} pts</span>
+            <span className={`pill ${p.points > 0 ? "win" : "locked"}`}>{t("me.pts", { n: p.points })}</span>
           ) : (
-            <span className="pill locked">Locked</span>
+            <span className="pill locked">{t("mc.locked")}</span>
           )}
         </div>
       </div>
     );
   }
+
+  const [siBefore, siRest] = tr(lang, "me.signedinas").split("{u}");
+  const siAfter = (siRest ?? "").replace("{name}", me.name);
 
   return (
     <main className="wrap">
@@ -102,62 +94,62 @@ export default async function MePage() {
         <div className="hero-doodle" style={{ top: 0 }}>
           <TrophyDoodle size={92} />
         </div>
-        <div className="label">Your game</div>
-        <h1 className="page">My predictions</h1>
-        <p className="lead">Every pick you've made, how it scored, and what's still locked in.</p>
+        <div className="label">{t("me.eyebrow")}</div>
+        <h1 className="page">{t("me.title")}</h1>
+        <p className="lead">{t("me.lead")}</p>
       </div>
 
       <div className="tiles">
         <div className="tile">
           <div className="n">{me.points}</div>
-          <div className="l">Total points</div>
+          <div className="l">{t("me.totalpoints")}</div>
         </div>
         <div className="tile">
           <div className="n">{preds.length}</div>
-          <div className="l">Predictions made</div>
+          <div className="l">{t("me.predsmade")}</div>
         </div>
         <div className="tile">
           <div className="n">{exact}</div>
-          <div className="l">Exact scores</div>
+          <div className="l">{t("me.exactscores")}</div>
         </div>
         <div className="tile">
           <div className="n">{correct}</div>
-          <div className="l">Points-scoring picks</div>
+          <div className="l">{t("me.scoringpicks")}</div>
         </div>
       </div>
 
       <div className="note-box">
-        🏆 Champion pick:{" "}
+        {t("me.champ")}{" "}
         {me.championTeam ? (
           <b style={{ color: "var(--text)" }}>
             {me.championTeam.flag} {me.championTeam.name}
           </b>
         ) : (
           <>
-            none yet —{" "}
+            {t("me.nonepick")}
             <Link href="/" style={{ color: "var(--orange)" }}>
-              pick one on the dashboard
+              {t("me.pickone")}
             </Link>
           </>
         )}{" "}
-        {me.championTeam && <span style={{ color: "var(--muted)" }}>(+15 pts if correct)</span>}
+        {me.championTeam && <span style={{ color: "var(--muted)" }}>{t("me.ifcorrect")}</span>}
         {fromMatches !== me.points && (
-          <span style={{ color: "var(--muted)" }}> · {fromMatches} from matches</span>
+          <span style={{ color: "var(--muted)" }}> · {t("me.frommatches", { n: fromMatches })}</span>
         )}
       </div>
 
       {preds.length === 0 && (
         <div className="note-box">
-          You haven't made any predictions yet.{" "}
+          {t("me.noneyet")}
           <Link href="/matches" style={{ color: "var(--orange)" }}>
-            Start predicting →
+            {t("me.startpredicting")}
           </Link>
         </div>
       )}
 
       {scored.length > 0 && (
         <>
-          <h2 className="sec">✅ Scored</h2>
+          <h2 className="sec">{t("me.scored")}</h2>
           <div className="tbl-wrap">
             {scored.map((p) => (
               <Row key={p.id} p={p} />
@@ -168,7 +160,7 @@ export default async function MePage() {
 
       {open.length > 0 && (
         <>
-          <h2 className="sec">⏳ Awaiting result</h2>
+          <h2 className="sec">{t("me.awaiting")}</h2>
           <div className="tbl-wrap">
             {open.map((p) => (
               <Row key={p.id} p={p} />
@@ -177,11 +169,13 @@ export default async function MePage() {
         </>
       )}
 
-      <h2 className="sec">⚙️ Account</h2>
+      <h2 className="sec">{t("me.account")}</h2>
       <div className="note-box">
-        Signed in as <b style={{ color: "var(--text)" }}>{me.username}</b> ({me.name}).
+        {siBefore}
+        <b style={{ color: "var(--text)" }}>{me.username}</b>
+        {siAfter}
         <div style={{ marginTop: 6 }}>
-          <ChangePassword />
+          <ChangePassword lang={lang} />
         </div>
       </div>
     </main>

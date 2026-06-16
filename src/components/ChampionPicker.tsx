@@ -2,17 +2,21 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Lang, tr } from "@/lib/i18n";
 
 export default function ChampionPicker({
   teams,
   current,
   locked,
+  lang,
 }: {
   teams: { id: number; name: string; flag: string; odds: number | null }[];
   current: number | null;
   locked: boolean;
+  lang: Lang;
 }) {
   const router = useRouter();
+  const t = (k: string, v?: Record<string, string | number>) => tr(lang, k, v);
   const [value, setValue] = useState<string>(current ? String(current) : "");
   const [saved, setSaved] = useState(false);
 
@@ -37,13 +41,22 @@ export default function ChampionPicker({
     <div className="note-box" style={{ borderLeftColor: "var(--orange)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <div>
-          <strong style={{ color: "var(--text)" }}>🏆 Your champion pick</strong>
+          <strong style={{ color: "var(--text)" }}>{t("champ.title")}</strong>
           <div style={{ fontSize: "0.82rem" }}>
-            Predict the winner — worth <b style={{ color: "var(--orange)" }}>+15 pts</b> if you nail it.
+            {(() => {
+              const [before, after] = t("champ.sub").split("{pts}");
+              return (
+                <>
+                  {before}
+                  <b style={{ color: "var(--orange)" }}>+15 pts</b>
+                  {after}
+                </>
+              );
+            })()}
           </div>
         </div>
         {locked ? (
-          <span className="pill locked">Locked</span>
+          <span className="pill locked">{t("champ.locked")}</span>
         ) : (
           <select
             className="scorebox"
@@ -51,7 +64,7 @@ export default function ChampionPicker({
             value={value}
             onChange={(e) => save(e.target.value)}
           >
-            <option value="">Choose…</option>
+            <option value="">{t("champ.choose")}</option>
             {teams.map((t) => (
               <option key={t.id} value={t.id}>
                 {t.flag} {t.name}
