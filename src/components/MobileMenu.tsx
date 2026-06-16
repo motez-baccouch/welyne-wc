@@ -58,6 +58,9 @@ export default function MobileMenu({
       {open && <div className="nav-scrim" onClick={() => setOpen(false)} />}
 
       <div className={`mobile-panel ${open ? "open" : ""}`} role="dialog" aria-modal="true">
+        <button className="mp-close" aria-label="Close menu" onClick={() => setOpen(false)}>
+          ✕
+        </button>
         {session && (
           <div className="mp-user">
             <Avatar src={session.avatar} name={session.name} size={44} />
