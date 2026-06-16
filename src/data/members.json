@@ -1,6 +1,6 @@
 [
-  { "username": "mohamed", "name": "Mohamed Ben Arfa", "role": "Founder & CEO", "avatar": "/team/mohamed.jpeg", "isAdmin": true },
-  { "username": "imen", "name": "Imen Badri", "role": "CTO · Software Architect", "avatar": "/team/imen.jpeg", "isAdmin": true },
+  { "username": "mohamed", "name": "Mohamed Ben Arfa", "role": "Founder & CEO", "avatar": "/team/mohamed.jpeg", "isAdmin": false },
+  { "username": "imen", "name": "Imen Badri", "role": "CTO · Software Architect", "avatar": "/team/imen.jpeg", "isAdmin": false },
   { "username": "sahar", "name": "Sahar Sallah", "role": "Software Engineer", "avatar": "/team/sahar.jpeg", "isAdmin": false },
   { "username": "hayfa", "name": "Hayfa Chouchene", "role": "Full-Stack Engineer", "avatar": "/team/hayfa.jpeg", "isAdmin": false },
   { "username": "hassene", "name": "Hassene Afif", "role": "Software Engineer", "avatar": "/team/hassen.jpeg", "isAdmin": false },
