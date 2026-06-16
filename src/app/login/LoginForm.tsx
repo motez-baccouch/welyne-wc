@@ -47,7 +47,7 @@ export default function LoginForm() {
             <input
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="e.g. motez"
+              placeholder="your name"
               autoCapitalize="none"
               autoFocus
             />
@@ -66,10 +66,6 @@ export default function LoginForm() {
             {loading ? "Signing in…" : "Kick off →"}
           </button>
         </form>
-        <div className="hint">
-          Your username is your <b>first name</b> (lowercase).<br />
-          Your password is your <b>name + 0*</b> — e.g. <b>motez</b> / <b>motez0*</b>.
-        </div>
       </div>
     </div>
   );
