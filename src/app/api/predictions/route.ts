@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { isPredictionLocked } from "@/lib/lock";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -25,9 +26,8 @@ export async function POST(req: NextRequest) {
   if (!match) return NextResponse.json({ ok: false, error: "Match not found." }, { status: 404 });
 
   // Lock once kickoff has passed or the match is live/finished.
-  const locked = match.status !== "SCHEDULED" || new Date(match.kickoff).getTime() <= Date.now();
-  if (locked) {
-    return NextResponse.json({ ok: false, error: "This match is locked." }, { status: 403 });
+  if (isPredictionLocked(match)) {
+    return NextResponse.json({ ok: false, error: "This match is locked — kickoff has passed." }, { status: 403 });
   }
   // Can't predict a knockout match until both teams are known.
   if (match.homeTeamId == null || match.awayTeamId == null) {

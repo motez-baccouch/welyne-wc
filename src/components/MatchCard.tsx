@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lang, tr } from "@/lib/i18n";
+import { isPredictionLocked } from "@/lib/lock";
 import Flag from "./Flag";
 
 export type MatchVM = {
@@ -65,8 +66,7 @@ export default function MatchCard({
 
   const finished = match.status === "FINISHED";
   const live = match.status === "LIVE";
-  const kickoffPassed = new Date(match.kickoff).getTime() <= Date.now();
-  const locked = finished || live || kickoffPassed;
+  const locked = isPredictionLocked(match);
   const canPredict = loggedIn && match.teamsKnown && !locked;
 
   async function save() {
