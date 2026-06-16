@@ -23,7 +23,7 @@ export default async function GroupsPage() {
       <h1 className="page">{t("groups.title")}</h1>
       <p className="lead">{t("groups.lead")}</p>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(330px,1fr))", gap: 18, marginTop: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(min(100%,330px),1fr))", gap: 18, marginTop: 24 }}>
         {GROUPS.map((g) => {
           const gTeams = teams
             .filter((t) => t.groupName === g)

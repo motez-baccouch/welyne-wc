@@ -6,6 +6,7 @@ import Avatar from "./Avatar";
 import LogoutButton from "./LogoutButton";
 import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
+import MobileMenu from "./MobileMenu";
 
 export default async function Nav() {
   const session = await getSession();
@@ -19,6 +20,16 @@ export default async function Nav() {
     points = u?.points ?? 0;
   }
 
+  const links = [
+    { href: "/", label: t("nav.dashboard") },
+    { href: "/matches", label: t("nav.matches") },
+    { href: "/groups", label: t("nav.groups") },
+    { href: "/bracket", label: t("nav.bracket") },
+    { href: "/teams", label: t("nav.teams") },
+    { href: "/leaderboard", label: t("nav.leaderboard") },
+    ...(session ? [{ href: "/me", label: t("nav.mypicks") }] : []),
+  ];
+
   return (
     <header className="top">
       <Link href="/" className="wm">
@@ -29,13 +40,11 @@ export default async function Nav() {
       </Link>
 
       <nav className="main">
-        <Link href="/">{t("nav.dashboard")}</Link>
-        <Link href="/matches">{t("nav.matches")}</Link>
-        <Link href="/groups">{t("nav.groups")}</Link>
-        <Link href="/bracket">{t("nav.bracket")}</Link>
-        <Link href="/teams">{t("nav.teams")}</Link>
-        <Link href="/leaderboard">{t("nav.leaderboard")}</Link>
-        {session && <Link href="/me">{t("nav.mypicks")}</Link>}
+        {links.map((l) => (
+          <Link key={l.href} href={l.href}>
+            {l.label}
+          </Link>
+        ))}
       </nav>
 
       <div className="nav-tools">
@@ -52,10 +61,17 @@ export default async function Nav() {
             <LogoutButton label={t("sync.logout")} />
           </div>
         ) : (
-          <Link href="/login" className="pill pts">
+          <Link href="/login" className="pill pts signin-desktop">
             {t("nav.signin")}
           </Link>
         )}
+
+        <MobileMenu
+          links={links}
+          session={session ? { name: session.name, avatar: session.avatar ?? null, points } : null}
+          signIn={t("nav.signin")}
+          signOut={t("sync.logout")}
+        />
       </div>
     </header>
   );
