@@ -118,6 +118,18 @@ const en: Dict = {
   "lb.you": " · you",
   "lb.picks": "{n} picks",
   "lb.exact": "{n} exact",
+  "lb.goat": "🐐 GOAT",
+  "lb.wood": "🪵 Non-athletic",
+  "lb.streak": "{n} in a row",
+  "lb.champ": "Champion",
+
+  // countdown
+  "cd.title": "Next automatic points update",
+  "cd.sub": "Results sync daily at 12:00 UTC · an admin can update anytime",
+  "cd.now": "updating now…",
+
+  // timezone note
+  "tz.note": "🕑 Kick-off times shown in Tunisia time (UTC+1).",
 
   // me
   "me.eyebrow": "Your game",
@@ -284,6 +296,18 @@ const fr: Dict = {
   "lb.you": " · vous",
   "lb.picks": "{n} paris",
   "lb.exact": "{n} exacts",
+  "lb.goat": "🐐 LE BOSS",
+  "lb.wood": "🪵 Non-sportif",
+  "lb.streak": "{n} d'affilée",
+  "lb.champ": "Champion",
+
+  // countdown
+  "cd.title": "Prochaine mise à jour des points",
+  "cd.sub": "Synchro des résultats chaque jour à 12:00 UTC · un admin peut mettre à jour à tout moment",
+  "cd.now": "mise à jour en cours…",
+
+  // timezone note
+  "tz.note": "🕑 Heures de coup d'envoi en heure tunisienne (UTC+1).",
 
   // me
   "me.eyebrow": "Votre jeu",

@@ -72,6 +72,7 @@ export default async function MatchesPage({
       <div className="label">{t("matches.eyebrow")}</div>
       <h1 className="page">{t("matches.title")}</h1>
       <p className="lead">{t("matches.lead")}</p>
+      <p className="lead" style={{ fontSize: "0.85rem", marginTop: 6 }}>{t("tz.note")}</p>
 
       <div className="chipbar">
         {GROUPS.map((g) => (

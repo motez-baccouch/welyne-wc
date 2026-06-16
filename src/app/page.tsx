@@ -7,6 +7,7 @@ import MatchCard from "@/components/MatchCard";
 import ChampionPicker from "@/components/ChampionPicker";
 import SyncButton from "@/components/SyncButton";
 import { BallDoodle } from "@/components/Doodles";
+import Countdown from "@/components/Countdown";
 import { getT } from "@/lib/i18n.server";
 
 export const dynamic = "force-dynamic";
@@ -102,6 +103,8 @@ export default async function Dashboard() {
           <div className="l">{t("dash.played")}</div>
         </div>
       </div>
+
+      <Countdown lang={lang} />
 
       <ChampionPicker
         teams={teams.map((tm) => ({ id: tm.id, name: tm.name, flag: tm.flag, odds: tm.odds }))}

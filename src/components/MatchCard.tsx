@@ -31,6 +31,7 @@ function fmtKickoff(iso: string, lang: Lang) {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Africa/Tunis", // show kick-off in Tunisian time (UTC+1)
   });
 }
 
