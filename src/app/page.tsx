@@ -10,6 +10,7 @@ import { BallDoodle } from "@/components/Doodles";
 import Countdown from "@/components/Countdown";
 import { getT } from "@/lib/i18n.server";
 import { championReactionKey } from "@/lib/champion";
+import { isChampionLocked } from "@/lib/championLock";
 
 export const dynamic = "force-dynamic";
 
@@ -23,9 +24,11 @@ export default async function Dashboard() {
     include: { championTeam: true },
   });
   if (!me) redirect("/login");
+
+  const championLocked = await isChampionLocked();
   // First-time onboarding: send people who haven't picked a champion to the
-  // dedicated selection page.
-  if (me.championTeamId == null) redirect("/champion");
+  // dedicated selection page — but not once the pick is locked (knockouts).
+  if (me.championTeamId == null && !championLocked) redirect("/champion");
 
   const [rankAbove, totalUsers, totalMatches, finishedCount] = await Promise.all([
     prisma.user.count({ where: { points: { gt: me.points } } }),
@@ -63,9 +66,6 @@ export default async function Dashboard() {
   const predMap = new Map(myPreds.map((p) => [p.matchId, p]));
 
   const myPredCount = await prisma.prediction.count({ where: { userId: me.id } });
-
-  const finalMatch = await prisma.match.findUnique({ where: { code: "FIN" } });
-  const championLocked = finalMatch?.status === "FINISHED";
 
   function vmPred(matchId: number) {
     const p = predMap.get(matchId);

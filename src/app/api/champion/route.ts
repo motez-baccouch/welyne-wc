@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { isChampionLocked } from "@/lib/championLock";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,10 +16,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Pick a team." }, { status: 400 });
   }
 
-  // Lock the champion pick once the final has finished.
-  const final = await prisma.match.findUnique({ where: { code: "FIN" } });
-  if (final && final.status === "FINISHED") {
-    return NextResponse.json({ ok: false, error: "Final is over — pick is locked." }, { status: 403 });
+  // Lock the champion pick once the knockout (playoff) phase begins.
+  if (await isChampionLocked()) {
+    return NextResponse.json(
+      { ok: false, error: "Champion pick is locked — the knockout phase has begun." },
+      { status: 403 }
+    );
   }
 
   const team = await prisma.team.findUnique({ where: { id: teamId } });

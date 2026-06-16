@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getT } from "@/lib/i18n.server";
 import { MAX_CHAMPION_CHANGES } from "@/lib/champion";
+import { isChampionLocked } from "@/lib/championLock";
 import ChampionSelect from "@/components/ChampionSelect";
 import { TrophyDoodle } from "@/components/Doodles";
 
@@ -13,14 +14,12 @@ export default async function ChampionPage() {
   if (!session) redirect("/login");
   const { lang, t } = getT();
 
-  const [me, teams, finalMatch] = await Promise.all([
+  const [me, teams, locked] = await Promise.all([
     prisma.user.findUnique({ where: { id: session.id } }),
     prisma.team.findMany({ orderBy: { odds: "asc" } }),
-    prisma.match.findUnique({ where: { code: "FIN" } }),
+    isChampionLocked(),
   ]);
   if (!me) redirect("/login");
-
-  const locked = finalMatch?.status === "FINISHED";
 
   return (
     <main className="wrap cs-main">
