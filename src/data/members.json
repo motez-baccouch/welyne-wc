@@ -1,0 +1,13 @@
+[
+  { "username": "mohamed", "name": "Mohamed Ben Arfa", "role": "Founder & CEO", "avatar": "/team/mohamed.jpeg", "isAdmin": true },
+  { "username": "imen", "name": "Imen Badri", "role": "CTO · Software Architect", "avatar": "/team/imen.jpeg", "isAdmin": true },
+  { "username": "sahar", "name": "Sahar Sallah", "role": "Software Engineer", "avatar": "/team/sahar.jpeg", "isAdmin": false },
+  { "username": "hayfa", "name": "Hayfa Chouchene", "role": "Full-Stack Engineer", "avatar": "/team/hayfa.jpeg", "isAdmin": false },
+  { "username": "hassene", "name": "Hassene Afif", "role": "Software Engineer", "avatar": "/team/hassen.jpeg", "isAdmin": false },
+  { "username": "amal", "name": "Amal Bentaleb", "role": "Full-Stack Developer", "avatar": "/team/amal.jpeg", "isAdmin": false },
+  { "username": "nermine", "name": "Nermine Ben Ammar", "role": "Full-Stack Developer", "avatar": "/team/nermine.jpeg", "isAdmin": false },
+  { "username": "ahmed", "name": "Ahmed Ben Aissa", "role": "Full-Stack Engineer", "avatar": "/team/ahmed.png", "isAdmin": false },
+  { "username": "nour", "name": "Nour Cheour", "role": "Software Engineer", "avatar": "/team/nour.jpeg", "isAdmin": false },
+  { "username": "eya", "name": "Eya Ben Aziza", "role": "Software Engineer", "avatar": null, "isAdmin": false },
+  { "username": "motez", "name": "Motez Baccouch", "role": "Full-Stack Developer", "avatar": "/team/motez.jpg", "isAdmin": true }
+]

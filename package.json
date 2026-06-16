@@ -1,0 +1,35 @@
+{
+  "name": "welyne-wc-predictions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Welyne World Cup 2026 prediction game — Next.js full-stack",
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && prisma db push --skip-generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "seed": "tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "5.22.0",
+    "bcryptjs": "2.4.3",
+    "jose": "5.9.6",
+    "next": "^14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.6",
+    "@types/node": "20.14.0",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "dotenv": "16.4.5",
+    "prisma": "5.22.0",
+    "tsx": "4.19.2",
+    "typescript": "5.5.4"
+  }
+}

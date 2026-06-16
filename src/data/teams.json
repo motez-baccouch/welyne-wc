@@ -1,0 +1,61 @@
+[
+  { "code": "MEX", "name": "Mexico", "flag": "🇲🇽", "group": "A", "odds": 81 },
+  { "code": "RSA", "name": "South Africa", "flag": "🇿🇦", "group": "A", "odds": 251 },
+  { "code": "KOR", "name": "South Korea", "flag": "🇰🇷", "group": "A", "odds": 151 },
+  { "code": "CZE", "name": "Czech Republic", "flag": "🇨🇿", "group": "A", "odds": 201 },
+
+  { "code": "CAN", "name": "Canada", "flag": "🇨🇦", "group": "B", "odds": 81 },
+  { "code": "BIH", "name": "Bosnia and Herzegovina", "flag": "🇧🇦", "group": "B", "odds": 301 },
+  { "code": "QAT", "name": "Qatar", "flag": "🇶🇦", "group": "B", "odds": 401 },
+  { "code": "SUI", "name": "Switzerland", "flag": "🇨🇭", "group": "B", "odds": 101 },
+
+  { "code": "BRA", "name": "Brazil", "flag": "🇧🇷", "group": "C", "odds": 8 },
+  { "code": "MAR", "name": "Morocco", "flag": "🇲🇦", "group": "C", "odds": 41 },
+  { "code": "HAI", "name": "Haiti", "flag": "🇭🇹", "group": "C", "odds": 751 },
+  { "code": "SCO", "name": "Scotland", "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "group": "C", "odds": 251 },
+
+  { "code": "USA", "name": "United States", "flag": "🇺🇸", "group": "D", "odds": 51 },
+  { "code": "PAR", "name": "Paraguay", "flag": "🇵🇾", "group": "D", "odds": 201 },
+  { "code": "AUS", "name": "Australia", "flag": "🇦🇺", "group": "D", "odds": 151 },
+  { "code": "TUR", "name": "Turkey", "flag": "🇹🇷", "group": "D", "odds": 67 },
+
+  { "code": "GER", "name": "Germany", "flag": "🇩🇪", "group": "E", "odds": 10 },
+  { "code": "CUW", "name": "Curaçao", "flag": "🇨🇼", "group": "E", "odds": 1001 },
+  { "code": "CIV", "name": "Ivory Coast", "flag": "🇨🇮", "group": "E", "odds": 81 },
+  { "code": "ECU", "name": "Ecuador", "flag": "🇪🇨", "group": "E", "odds": 81 },
+
+  { "code": "NED", "name": "Netherlands", "flag": "🇳🇱", "group": "F", "odds": 13 },
+  { "code": "JPN", "name": "Japan", "flag": "🇯🇵", "group": "F", "odds": 67 },
+  { "code": "SWE", "name": "Sweden", "flag": "🇸🇪", "group": "F", "odds": 101 },
+  { "code": "TUN", "name": "Tunisia", "flag": "🇹🇳", "group": "F", "odds": 401 },
+
+  { "code": "BEL", "name": "Belgium", "flag": "🇧🇪", "group": "G", "odds": 26 },
+  { "code": "EGY", "name": "Egypt", "flag": "🇪🇬", "group": "G", "odds": 151 },
+  { "code": "IRN", "name": "Iran", "flag": "🇮🇷", "group": "G", "odds": 251 },
+  { "code": "NZL", "name": "New Zealand", "flag": "🇳🇿", "group": "G", "odds": 751 },
+
+  { "code": "ESP", "name": "Spain", "flag": "🇪🇸", "group": "H", "odds": 5.5 },
+  { "code": "CPV", "name": "Cape Verde", "flag": "🇨🇻", "group": "H", "odds": 751 },
+  { "code": "KSA", "name": "Saudi Arabia", "flag": "🇸🇦", "group": "H", "odds": 401 },
+  { "code": "URU", "name": "Uruguay", "flag": "🇺🇾", "group": "H", "odds": 29 },
+
+  { "code": "FRA", "name": "France", "flag": "🇫🇷", "group": "I", "odds": 6 },
+  { "code": "SEN", "name": "Senegal", "flag": "🇸🇳", "group": "I", "odds": 34 },
+  { "code": "IRQ", "name": "Iraq", "flag": "🇮🇶", "group": "I", "odds": 501 },
+  { "code": "NOR", "name": "Norway", "flag": "🇳🇴", "group": "I", "odds": 34 },
+
+  { "code": "ARG", "name": "Argentina", "flag": "🇦🇷", "group": "J", "odds": 6.5 },
+  { "code": "ALG", "name": "Algeria", "flag": "🇩🇿", "group": "J", "odds": 151 },
+  { "code": "AUT", "name": "Austria", "flag": "🇦🇹", "group": "J", "odds": 81 },
+  { "code": "JOR", "name": "Jordan", "flag": "🇯🇴", "group": "J", "odds": 751 },
+
+  { "code": "POR", "name": "Portugal", "flag": "🇵🇹", "group": "K", "odds": 11 },
+  { "code": "COD", "name": "DR Congo", "flag": "🇨🇩", "group": "K", "odds": 201 },
+  { "code": "UZB", "name": "Uzbekistan", "flag": "🇺🇿", "group": "K", "odds": 301 },
+  { "code": "COL", "name": "Colombia", "flag": "🇨🇴", "group": "K", "odds": 26 },
+
+  { "code": "ENG", "name": "England", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "group": "L", "odds": 7 },
+  { "code": "CRO", "name": "Croatia", "flag": "🇭🇷", "group": "L", "odds": 41 },
+  { "code": "GHA", "name": "Ghana", "flag": "🇬🇭", "group": "L", "odds": 151 },
+  { "code": "PAN", "name": "Panama", "flag": "🇵🇦", "group": "L", "odds": 501 }
+]

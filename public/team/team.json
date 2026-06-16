@@ -1,0 +1,200 @@
+[
+  {
+    "name": "Mohamed Ben Arfa",
+    "role": "Founder & CEO",
+    "location": "Paris, Île-de-France, France",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["Leadership", "Digital Transformation", "AI Solutions", "ERP Systems", "Innovation"],
+    "description": "Visionary leader with more than 20 years of experience in IT, banking, and software innovation. Mohamed founded Welyne to deliver AI-driven digital transformation and ERP solutions for global clients.",
+    "achievements": [
+      "Founded Welyne with 100+ successful projects",
+      "Built and managed a team of 30+ engineers",
+      "Delivered AI-driven solutions for 50+ clients"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/mohamed-ben-arfa-992763b",
+      "email": "mbenarfa@welyne.com"
+    },
+    "phone": "21 747 870"
+  },
+  {
+    "name": "Imen Badri",
+    "role": "Chief Technology Officer (CTO)",
+    "location": "Ariana, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["Full-Stack", "C#", "React.js", "Angular", "Tech Leadership"],
+    "description": "CTO with strong expertise in modern web frameworks. Imen leads Welyne’s technology roadmap, ensuring scalable and robust solutions while mentoring developers.",
+    "achievements": [
+      "5+ years in full-stack development",
+      "Trainer and mentor at 3W Academy",
+      "Drives technology vision at Welyne"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/imen-badri",
+      "email": "ibadri@welyne.com"
+    },
+    "phone": "96 099 053"
+  },
+  {
+    "name": "Sahar Sallah",
+    "role": "Software Engineer",
+    "location": "Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["AI", "Python", "Angular", "Vue.js", "Next.js"],
+    "description": "Dynamic engineer with strong experience in AI-powered applications and modern web technologies. Sahar builds intelligent backend systems and scalable web apps.",
+    "achievements": [
+      "Developed AI-powered call center automation",
+      "Built full-stack platforms with Angular, Vue, and Next.js",
+      "Delivered ERP and e-commerce systems"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/sahar-sallah-b147b3155",
+      "email": "ssallah@welyne.com"
+    },
+    "phone": "24 446 695"
+  },
+  {
+    "name": "Hayfa Chouchene",
+    "role": "Full-Stack Software Engineer",
+    "location": "Tunis, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["MERN Stack", "React Native", "Node.js", "Docker", "API Development"],
+    "description": "Full-stack engineer specializing in web and mobile applications. Hayfa combines MERN stack expertise with React Native to deliver high-quality digital solutions.",
+    "achievements": [
+      "4+ years at Welyne building mobile and web apps",
+      "Developed scalable backend APIs",
+      "Optimized mobile performance across platforms"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/hayfa-chouchene",
+      "email": "hchouchene@welyne.com"
+    },
+    "phone": "54 796 226"
+  },
+  {
+    "name": "Hassene Afif",
+    "role": "Software Engineer",
+    "location": "Ariana, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["Full-Stack", "AI & Data", "Next.js", "Flutter", "Laravel"],
+    "description": "Full-stack developer passionate about AI and Web3. Hassene has led diverse projects, from crypto platforms to AI-powered applications.",
+    "achievements": [
+      "Mentored developers across projects",
+      "Co-developed AI-driven platforms",
+      "Led crypto and Web3 app development"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/hasseneafif",
+      "email": "hafif@welyne.com"
+    },
+    "phone": "55 039 837"
+  },
+  {
+    "name": "Amal Bentaleb",
+    "role": "Full-Stack Developer",
+    "location": "Tunis, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["MERN", "MEAN", "TypeScript", "Next.js", "Web Apps"],
+    "description": "Full-stack developer specialized in MERN and MEAN stacks. Amal has experience delivering complete, robust web applications from front to back.",
+    "achievements": [
+      "Built interactive service marketplace platforms",
+      "Delivered education and e-learning platforms",
+      "Created real-time communication systems"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/amal-bentaleb-266579195",
+      "email": "abentaleb@welyne.com"
+    },
+    "phone": "20 932 671"
+  },
+  {
+    "name": "Nermine Ben Ammar",
+    "role": "Full-Stack Developer",
+    "location": "Tunis, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["JavaScript", "Vue.js", "React", "Node.js", "Agile"],
+    "description": "Full-stack engineer with experience across major frameworks. Nermine has contributed to projects at Welyne and Capgemini.",
+    "achievements": [
+      "Delivered scalable web applications",
+      "Worked in international teams",
+      "Contributed to Agile-driven projects"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/nermine-ben-ammar-559452237",
+      "email": "nbenammar@welyne.com"
+    },
+    "phone": "55 789 339"
+  },
+  {
+    "name": "Ahmed Ben Aissa",
+    "role": "Full-Stack Software Engineer",
+    "location": "Nabeul, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["Next.js", "Node.js", "Python", "AI/ML", "DevOps"],
+    "description": "Ambitious full-stack engineer with experience in AI/ML and DevOps. Ahmed builds secure, scalable, and optimized web applications.",
+    "achievements": [
+      "Developed AI-powered call center solutions",
+      "Created CI/CD pipelines for cloud deployment",
+      "Delivered blockchain and payment integrations"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/ahmed-ben-aissa-2b2165242",
+      "email": "abenaissa@welyne.com"
+    },
+    "phone": "98 834 834"
+  },
+  {
+    "name": "Nour Cheour",
+    "role": "Software Engineer",
+    "location": "Tunis, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["AI", "Machine Learning", "Python", "TypeScript", "Data Science"],
+    "description": "Software engineer passionate about AI and problem solving. Nour has international experience in Paris and the UK, contributing to AI and open-source projects.",
+    "achievements": [
+      "Developed AI models for healthcare and finance",
+      "Contributed to Jupyter open-source projects",
+      "Delivered full-stack applications internationally"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/nour-cheour-606143206",
+      "email": "ncheour@welyne.com"
+    },
+    "phone": "53 339 773"
+  },
+  {
+    "name": "Eya Ben Aziza",
+    "role": "Software Engineer | AI & Development",
+    "location": "Tunis, Tunisia",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["AI", "Embedded Systems", "CMake", "Git", "Software Development"],
+    "description": "Engineer combining AI and software development experience. Eya has worked in both embedded systems and intelligent software projects.",
+    "achievements": [
+      "Contributed to AI and embedded projects in Tunisia and Germany",
+      "Implemented BLE stacks and testing environments",
+      "Strong academic background in intelligent systems"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/eya-ben-aziza-574a6a254",
+      "email": "ebenaziza@welyne.com"
+    },
+    "phone": "58 468 249"
+  },
+  {
+    "name": "Motez Baccouch",
+    "role": "Full-Stack Software Developer",
+    "location": "Tunis, Tunisia / London, UK",
+    "picture": "https://media.licdn.com/dms/image/.../profile",
+    "expertise": ["Angular", "Vue.js", "Node.js", "VR Development", "Game Dev"],
+    "description": "Versatile engineer bridging web development and VR. Motez builds user-centric web apps and immersive virtual reality experiences.",
+    "achievements": [
+      "Developed VR applications with Unreal Engine",
+      "Contributed to enterprise Angular web apps",
+      "Worked on international projects in Paris and London"
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/motez-baccouch-b4aa09212",
+      "email": "mbaccouch@welyne.com"
+    },
+    "phone": "25 860 600"
+  }
+]
