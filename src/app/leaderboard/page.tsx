@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Avatar from "@/components/Avatar";
 import Countdown from "@/components/Countdown";
+import Flag from "@/components/Flag";
 import { getT } from "@/lib/i18n.server";
 
 export const dynamic = "force-dynamic";
@@ -79,8 +80,9 @@ export default async function LeaderboardPage() {
                     {u.championTeam && (
                       <>
                         {" · "}
-                        <span title={t("lb.champ")}>
-                          🏆 {u.championTeam.flag} {u.championTeam.name}
+                        <span title={t("lb.champ")} style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+                          🏆 <Flag code={u.championTeam.code} emoji={u.championTeam.flag} w={18} />{" "}
+                          {u.championTeam.name}
                         </span>
                       </>
                     )}

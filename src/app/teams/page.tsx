@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getT } from "@/lib/i18n.server";
+import Flag from "@/components/Flag";
 
 export const dynamic = "force-dynamic";
 
@@ -24,8 +25,9 @@ export default async function TeamsPage() {
       <h2 className="sec">{t("teams.favourites")}</h2>
       <div className="chipbar">
         {favorites.map((tm) => (
-          <span key={tm.id} className="fchip">
-            {tm.flag} {tm.name} · <b style={{ color: "var(--orange)" }}>{tm.odds}</b>
+          <span key={tm.id} className="fchip" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+            <Flag code={tm.code} emoji={tm.flag} w={20} /> {tm.name} ·{" "}
+            <b style={{ color: "var(--orange)" }}>{tm.odds}</b>
           </span>
         ))}
       </div>
@@ -38,7 +40,7 @@ export default async function TeamsPage() {
               .filter((tm) => tm.groupName === g)
               .map((tm) => (
                 <div key={tm.id} className="team-card">
-                  <span className="flag">{tm.flag}</span>
+                  <Flag code={tm.code} emoji={tm.flag} w={34} />
                   <div>
                     <div className="nm">{tm.name}</div>
                     <div className="od">

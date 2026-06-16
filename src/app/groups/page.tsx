@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { computeGroupStandings } from "@/lib/standings";
 import { getT } from "@/lib/i18n.server";
+import Flag from "@/components/Flag";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +53,7 @@ export default async function GroupsPage() {
                       <tr key={r.team.id} className={i < 2 ? "qualify" : i === 2 ? "third" : ""}>
                         <td className="team">
                           <span className="pos">{i + 1}</span>
-                          <span style={{ fontSize: "1.2rem" }}>{r.team.flag}</span>
+                          <Flag code={r.team.code} emoji={r.team.flag} w={24} />
                           <span>{r.team.name}</span>
                         </td>
                         <td>{r.played}</td>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lang, tr } from "@/lib/i18n";
+import Flag from "./Flag";
 
 type Team = { id: number; code: string; name: string; flag: string; odds: number | null };
 
@@ -68,6 +69,7 @@ export default function ChampionPicker({
         <div className="champ-h">
           <strong>{champion ? t("champ.change") : t("champ.choosebig")}</strong>
           <div className="champ-sub">{t("champ.choosesub")}</div>
+          <div className="champ-legend">{t("champ.oddsnote")}</div>
         </div>
         {err && <div className="err" style={{ marginBottom: 10 }}>{err}</div>}
         <div className="champ-grid">
@@ -77,10 +79,11 @@ export default function ChampionPicker({
               className={`champ-card ${tm.id === championId ? "sel" : ""}`}
               onClick={() => pick(tm.id)}
               disabled={busy}
+              title={tm.odds != null ? t("champ.oddstip", { odds: tm.odds }) : undefined}
             >
-              <span className="cf">{tm.flag}</span>
+              <Flag code={tm.code} emoji={tm.flag} w={26} />
               <span className="cn">{tm.name}</span>
-              {tm.odds != null && <span className="cod">{tm.odds}</span>}
+              {tm.odds != null && <span className="cod">{tm.odds}×</span>}
             </button>
           ))}
         </div>
@@ -100,7 +103,7 @@ export default function ChampionPicker({
         <div>
           <div className="champ-lbl">{t("champ.yourchamp")}</div>
           <div className="champ-pick">
-            <span className="cf">{champion?.flag}</span>
+            <Flag code={champion?.code} emoji={champion?.flag} w={34} />
             <span>{champion?.name}</span>
           </div>
           {champion && <div className="champ-react">{t(reactionKey(champion.code))}</div>}

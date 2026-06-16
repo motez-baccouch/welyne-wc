@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lang, tr } from "@/lib/i18n";
+import Flag from "./Flag";
 
 export type MatchVM = {
   id: number;
@@ -14,8 +15,10 @@ export type MatchVM = {
   status: string;
   homeName: string | null;
   homeFlag: string | null;
+  homeCode: string | null;
   awayName: string | null;
   awayFlag: string | null;
+  awayCode: string | null;
   homePlaceholder: string | null;
   awayPlaceholder: string | null;
   homeScore: number | null;
@@ -110,6 +113,7 @@ export default function MatchCard({
   function TeamRow({
     name,
     flag,
+    code,
     placeholder,
     score,
     isInput,
@@ -119,6 +123,7 @@ export default function MatchCard({
   }: {
     name: string | null;
     flag: string | null;
+    code: string | null;
     placeholder: string | null;
     score: number | null;
     isInput: boolean;
@@ -131,7 +136,7 @@ export default function MatchCard({
         <div className="tn">
           {name ? (
             <>
-              <span className="flag">{flag}</span>
+              <Flag code={code} emoji={flag} w={26} />
               <span className="nm" style={winner ? { color: "var(--win)" } : undefined}>
                 {name}
               </span>
@@ -139,7 +144,6 @@ export default function MatchCard({
           ) : (
             <span className="nm">{placeholder ?? "TBD"}</span>
           )}
-          {/* flag rendered above for known teams */}
         </div>
         {finished ? (
           <span className="finalscore" style={winner ? { color: "var(--win)" } : undefined}>
@@ -180,6 +184,7 @@ export default function MatchCard({
       <TeamRow
         name={match.homeName}
         flag={match.homeFlag}
+        code={match.homeCode}
         placeholder={match.homePlaceholder}
         score={match.homeScore}
         isInput={canPredict}
@@ -190,6 +195,7 @@ export default function MatchCard({
       <TeamRow
         name={match.awayName}
         flag={match.awayFlag}
+        code={match.awayCode}
         placeholder={match.awayPlaceholder}
         score={match.awayScore}
         isInput={canPredict}

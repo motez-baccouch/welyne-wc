@@ -50,6 +50,8 @@ const en: Dict = {
   "champ.react.TUN": "😅 You're delusional… but we love the loyalty.",
   "champ.react.predictable": "🥱 Predictable.",
   "champ.react.default": "🔥 Bold call. Now back it up.",
+  "champ.oddsnote": "Numbers are title odds — how many times your stake a win pays. Lower = bookies' favourite (e.g. 5.5× Spain), higher = long shot (251× South Africa).",
+  "champ.oddstip": "Title odds: {odds}× — lower means more likely to win",
 
   // matches
   "matches.eyebrow": "Fixtures & predictions",
@@ -238,6 +240,8 @@ const fr: Dict = {
   "champ.react.TUN": "😅 Tu délires… mais on adore la loyauté.",
   "champ.react.predictable": "🥱 Prévisible.",
   "champ.react.default": "🔥 Choix audacieux. Maintenant, assume.",
+  "champ.oddsnote": "Les nombres sont les cotes du titre — combien de fois la mise est payée en cas de victoire. Plus bas = favori des bookmakers (ex. 5,5× l'Espagne), plus haut = outsider (251× l'Afrique du Sud).",
+  "champ.oddstip": "Cote du titre : {odds}× — plus bas = plus probable",
 
   // matches
   "matches.eyebrow": "Calendrier & pronostics",

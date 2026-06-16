@@ -4,6 +4,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { TrophyDoodle } from "@/components/Doodles";
 import ChangePassword from "@/components/ChangePassword";
+import Flag from "@/components/Flag";
 import { getT } from "@/lib/i18n.server";
 import { tr, Lang } from "@/lib/i18n";
 
@@ -53,9 +54,25 @@ export default async function MePage() {
       <div className="lb-row" style={{ gridTemplateColumns: "1fr auto auto", gap: 14 }}>
         <div style={{ minWidth: 0 }}>
           <div style={{ fontWeight: 700, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-            <span>{m.homeTeam ? `${m.homeTeam.flag} ${m.homeTeam.name}` : m.homePlaceholder}</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              {m.homeTeam ? (
+                <>
+                  <Flag code={m.homeTeam.code} emoji={m.homeTeam.flag} w={20} /> {m.homeTeam.name}
+                </>
+              ) : (
+                m.homePlaceholder
+              )}
+            </span>
             <span style={{ color: "var(--muted)" }}>vs</span>
-            <span>{m.awayTeam ? `${m.awayTeam.flag} ${m.awayTeam.name}` : m.awayPlaceholder}</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              {m.awayTeam ? (
+                <>
+                  <Flag code={m.awayTeam.code} emoji={m.awayTeam.flag} w={20} /> {m.awayTeam.name}
+                </>
+              ) : (
+                m.awayPlaceholder
+              )}
+            </span>
           </div>
           <div className="ro" style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)", marginTop: 3 }}>
             {tr(lang, `stage.${m.stage}`)}
@@ -122,8 +139,8 @@ export default async function MePage() {
       <div className="note-box">
         {t("me.champ")}{" "}
         {me.championTeam ? (
-          <b style={{ color: "var(--text)" }}>
-            {me.championTeam.flag} {me.championTeam.name}
+          <b style={{ color: "var(--text)", display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <Flag code={me.championTeam.code} emoji={me.championTeam.flag} w={20} /> {me.championTeam.name}
           </b>
         ) : (
           <>

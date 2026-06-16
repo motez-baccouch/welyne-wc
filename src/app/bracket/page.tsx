@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getT } from "@/lib/i18n.server";
+import Flag from "@/components/Flag";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +12,8 @@ type M = {
   status: string;
   homeScore: number | null;
   awayScore: number | null;
-  homeTeam: { name: string; flag: string } | null;
-  awayTeam: { name: string; flag: string } | null;
+  homeTeam: { name: string; flag: string; code: string } | null;
+  awayTeam: { name: string; flag: string; code: string } | null;
   homePlaceholder: string | null;
   awayPlaceholder: string | null;
 };
@@ -29,7 +30,7 @@ function Tie({ m }: { m: M }) {
         <span className="nm">
           {m.homeTeam ? (
             <>
-              <span>{m.homeTeam.flag}</span>
+              <Flag code={m.homeTeam.code} emoji={m.homeTeam.flag} w={22} />
               <span className="nmt">{m.homeTeam.name}</span>
             </>
           ) : (
@@ -42,7 +43,7 @@ function Tie({ m }: { m: M }) {
         <span className="nm">
           {m.awayTeam ? (
             <>
-              <span>{m.awayTeam.flag}</span>
+              <Flag code={m.awayTeam.code} emoji={m.awayTeam.flag} w={22} />
               <span className="nmt">{m.awayTeam.name}</span>
             </>
           ) : (
