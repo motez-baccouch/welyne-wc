@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { TrophyDoodle } from "@/components/Doodles";
+import ChangePassword from "@/components/ChangePassword";
 
 export const dynamic = "force-dynamic";
 
@@ -175,6 +176,14 @@ export default async function MePage() {
           </div>
         </>
       )}
+
+      <h2 className="sec">⚙️ Account</h2>
+      <div className="note-box">
+        Signed in as <b style={{ color: "var(--text)" }}>{me.username}</b> ({me.name}).
+        <div style={{ marginTop: 6 }}>
+          <ChangePassword />
+        </div>
+      </div>
     </main>
   );
 }

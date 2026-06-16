@@ -25,9 +25,16 @@ async function handle(req: NextRequest) {
     }
   }
 
+  const reset = req.nextUrl.searchParams.get("reset");
+  const resetPasswords = reset === "1" || reset === "true";
+
   try {
-    const counts = await runSeed();
-    return NextResponse.json({ ok: true, message: "Database seeded.", counts });
+    const counts = await runSeed({ resetPasswords });
+    return NextResponse.json({
+      ok: true,
+      message: resetPasswords ? "Database seeded; passwords reset to default." : "Database seeded.",
+      counts,
+    });
   } catch (e: any) {
     return NextResponse.json({ ok: false, error: e?.message ?? String(e) }, { status: 500 });
   }

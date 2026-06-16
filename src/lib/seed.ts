@@ -21,8 +21,9 @@ type Fixture = {
   status?: string;
 };
 
-export async function runSeed() {
-  const suffix = process.env.PASSWORD_SUFFIX ?? "0*";
+export async function runSeed(opts: { resetPasswords?: boolean } = {}) {
+  // Trim guards against a stray space/quote accidentally saved in the env var.
+  const suffix = (process.env.PASSWORD_SUFFIX ?? "0*").trim();
 
   // 1) Teams
   for (const t of teams as any[]) {
@@ -66,8 +67,16 @@ export async function runSeed() {
     const passwordHash = await hashPassword(m.username + suffix);
     await prisma.user.upsert({
       where: { username: m.username },
-      update: { name: m.name, role: m.role, avatar: m.avatar, isAdmin: m.isAdmin },
-      // only set passwordHash on create so we don't reset changed passwords on re-seed
+      // Normally we don't touch passwordHash on update (so members keep any
+      // password they've changed to). With resetPasswords we force it back to
+      // the default — used for recovery via /api/setup?reset=1.
+      update: {
+        name: m.name,
+        role: m.role,
+        avatar: m.avatar,
+        isAdmin: m.isAdmin,
+        ...(opts.resetPasswords ? { passwordHash } : {}),
+      },
       create: {
         username: m.username,
         name: m.name,

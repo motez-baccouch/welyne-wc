@@ -793,6 +793,17 @@ table.data tr.third td {
   color: var(--orange);
 }
 
+.pw-form {
+  max-width: 360px;
+  margin-top: 12px;
+}
+.ok-msg {
+  color: #5fd07a;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  margin: 6px 0;
+}
+
 /* ───── doodles ───── */
 .doodle {
   display: block;
