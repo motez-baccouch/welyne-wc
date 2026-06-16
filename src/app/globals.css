@@ -269,26 +269,6 @@ nav.main a.active {
 .mobile-panel.open {
   transform: none;
 }
-.mp-close {
-  align-self: flex-end;
-  width: 42px;
-  height: 42px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--bg-2);
-  color: var(--text);
-  cursor: pointer;
-}
-.mp-close:active,
-.mp-close:hover {
-  border-color: var(--orange);
-  color: var(--orange);
-}
 .mp-user {
   display: flex;
   align-items: center;
