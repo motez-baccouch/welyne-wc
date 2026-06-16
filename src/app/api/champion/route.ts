@@ -24,6 +24,34 @@ export async function POST(req: NextRequest) {
   const team = await prisma.team.findUnique({ where: { id: teamId } });
   if (!team) return NextResponse.json({ ok: false, error: "Team not found." }, { status: 404 });
 
-  await prisma.user.update({ where: { id: session.id }, data: { championTeamId: teamId } });
-  return NextResponse.json({ ok: true, championTeamId: teamId });
+  const me = await prisma.user.findUnique({ where: { id: session.id } });
+  if (!me) return NextResponse.json({ ok: false, error: "Not found." }, { status: 404 });
+
+  const MAX_CHANGES = 2;
+  const isInitial = me.championTeamId == null;
+  const isSameTeam = me.championTeamId === teamId;
+
+  // Picking the same team again is a no-op (doesn't burn a change).
+  if (isSameTeam) {
+    return NextResponse.json({ ok: true, championTeamId: teamId, changesLeft: MAX_CHANGES - me.championChanges });
+  }
+
+  // Changing an existing pick costs one of the two allowed changes.
+  if (!isInitial && me.championChanges >= MAX_CHANGES) {
+    return NextResponse.json(
+      { ok: false, error: "You've used both champion changes — your pick is locked.", changesLeft: 0 },
+      { status: 403 }
+    );
+  }
+
+  const nextChanges = isInitial ? me.championChanges : me.championChanges + 1;
+  await prisma.user.update({
+    where: { id: session.id },
+    data: { championTeamId: teamId, championChanges: nextChanges },
+  });
+  return NextResponse.json({
+    ok: true,
+    championTeamId: teamId,
+    changesLeft: MAX_CHANGES - nextChanges,
+  });
 }

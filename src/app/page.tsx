@@ -82,6 +82,14 @@ export default async function Dashboard() {
         <p className="lead">{t("dash.lead")}</p>
       </div>
 
+      <ChampionPicker
+        teams={teams.map((tm) => ({ id: tm.id, code: tm.code, name: tm.name, flag: tm.flag, odds: tm.odds }))}
+        current={me.championTeamId}
+        changesLeft={Math.max(0, 2 - me.championChanges)}
+        locked={championLocked}
+        lang={lang}
+      />
+
       <div className="tiles">
         <div className="tile">
           <div className="n">{me.points}</div>
@@ -105,13 +113,6 @@ export default async function Dashboard() {
       </div>
 
       <Countdown lang={lang} />
-
-      <ChampionPicker
-        teams={teams.map((tm) => ({ id: tm.id, name: tm.name, flag: tm.flag, odds: tm.odds }))}
-        current={me.championTeamId}
-        locked={championLocked}
-        lang={lang}
-      />
 
       {me.isAdmin && <SyncButton lang={lang} />}
 

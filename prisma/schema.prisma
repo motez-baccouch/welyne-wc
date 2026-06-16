@@ -35,6 +35,7 @@ model User {
   predictions  Prediction[]
   championTeamId Int?
   championTeam   Team?      @relation("Champion", fields: [championTeamId], references: [id])
+  championChanges Int       @default(0) // number of times the champion has been changed (max 2)
   createdAt    DateTime     @default(now())
 }
 

@@ -615,6 +615,104 @@ table.data tr.third td {
   font-weight: 500;
 }
 
+/* ───── champion picker ───── */
+.champ-box {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  background: var(--bg-2);
+  padding: 18px;
+  margin: 20px 0;
+}
+.champ-h strong {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.champ-sub {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin: 4px 0 14px;
+  max-width: 60ch;
+}
+.champ-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.champ-card {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-3);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, transform 0.15s, background 0.2s;
+}
+.champ-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+.champ-card.sel {
+  border-color: var(--orange);
+  background: rgba(255, 107, 0, 0.12);
+}
+.champ-card:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.champ-card .cf {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.champ-card .cn {
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.champ-card .cod {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--orange);
+  font-weight: 700;
+}
+.champ-lbl {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.champ-pick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin-top: 4px;
+}
+.champ-pick .cf {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+.champ-react {
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--orange);
+}
+
 /* ───── leaderboard badges ───── */
 .badge {
   font-family: var(--mono);
