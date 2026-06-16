@@ -52,6 +52,12 @@ const en: Dict = {
   "champ.react.default": "🔥 Bold call. Now back it up.",
   "champ.oddsnote": "Numbers are title odds — how many times your stake a win pays. Lower = bookies' favourite (e.g. 5.5× Spain), higher = long shot (251× South Africa).",
   "champ.oddstip": "Title odds: {odds}× — lower means more likely to win",
+  "champ.searchph": "Search a team…",
+  "champ.noresults": "No team matches your search.",
+  "champ.confirm": "Confirm champion",
+  "champ.page.eyebrow": "Your call",
+  "champ.gotopick": "Pick your champion →",
+  "champ.dash.none": "You haven't picked a World Cup champion yet.",
 
   // matches
   "matches.eyebrow": "Fixtures & predictions",
@@ -242,6 +248,12 @@ const fr: Dict = {
   "champ.react.default": "🔥 Choix audacieux. Maintenant, assume.",
   "champ.oddsnote": "Les nombres sont les cotes du titre — combien de fois la mise est payée en cas de victoire. Plus bas = favori des bookmakers (ex. 5,5× l'Espagne), plus haut = outsider (251× l'Afrique du Sud).",
   "champ.oddstip": "Cote du titre : {odds}× — plus bas = plus probable",
+  "champ.searchph": "Rechercher une équipe…",
+  "champ.noresults": "Aucune équipe ne correspond.",
+  "champ.confirm": "Confirmer le champion",
+  "champ.page.eyebrow": "Votre choix",
+  "champ.gotopick": "Choisir votre champion →",
+  "champ.dash.none": "Vous n'avez pas encore choisi de champion.",
 
   // matches
   "matches.eyebrow": "Calendrier & pronostics",

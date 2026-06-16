@@ -721,7 +721,262 @@ table.data tr.third td {
   line-height: 1;
 }
 
-/* ───── champion picker ───── */
+/* ───── champion selection page ───── */
+.cs-main {
+  padding-bottom: 140px; /* room for the sticky confirm bar */
+}
+.cs-hero {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--bg-2), var(--bg));
+  padding: clamp(26px, 5vw, 44px);
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.cs-hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 80% at 85% -10%, rgba(255, 107, 0, 0.22), transparent 60%);
+}
+.cs-hero > * {
+  position: relative;
+}
+.cs-hero-trophy {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  opacity: 0.92;
+}
+.cs-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.cs-search {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+.cs-search:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 168px), 1fr));
+  gap: 12px;
+}
+.cs-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.cs-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 107, 0, 0.5);
+}
+.cs-card:active {
+  transform: scale(0.97);
+}
+.cs-card.sel {
+  border-color: var(--orange);
+  background: rgba(255, 107, 0, 0.12);
+  box-shadow: 0 0 0 2px var(--orange) inset, 0 10px 24px -12px rgba(255, 107, 0, 0.6);
+}
+.cs-card.champ {
+  border-color: var(--green-2);
+}
+.cs-card:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.cs-card .cs-flag {
+  width: 44px !important;
+  height: 33px !important;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px -3px rgba(0, 0, 0, 0.5);
+}
+.cs-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-align: center;
+  line-height: 1.15;
+}
+.cs-odds {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+}
+.cs-fav {
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  font-size: 11px;
+  color: #ffd24a;
+}
+.cs-check {
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--green-2);
+  color: #04130a;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* current champion banner */
+.cs-current {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green-2);
+  border-radius: 14px;
+  background: var(--bg-2);
+  margin-bottom: 18px;
+}
+.cs-current.pop {
+  animation: csPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes csPop {
+  0% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 0 rgba(44, 154, 79, 0.5);
+  }
+  60% {
+    box-shadow: 0 0 0 10px rgba(44, 154, 79, 0);
+  }
+}
+.cs-current-lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cs-current-name {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+.cs-current-react {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--orange);
+  margin-top: 2px;
+}
+.cs-back {
+  margin-left: auto;
+}
+/* sticky confirm bar */
+.cs-confirm {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px var(--mx) calc(14px + env(safe-area-inset-bottom));
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -10px 30px -16px rgba(0, 0, 0, 0.6);
+  animation: csUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes csUp {
+  from {
+    transform: translateY(100%);
+  }
+}
+.cs-confirm-team {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+.cs-confirm-name {
+  font-weight: 800;
+  font-size: 1.05rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-confirm-react {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--orange);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-confirm .btn {
+  flex: none;
+}
+.cs-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 20px;
+  text-align: center;
+}
+.cs-success-name {
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 560px) {
+  .cs-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 9px;
+  }
+  .cs-card {
+    padding: 14px 6px 11px;
+    border-radius: 13px;
+  }
+  .cs-name {
+    font-size: 0.74rem;
+  }
+  .cs-hero-trophy {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  .cs-confirm .btn {
+    padding: 13px 16px;
+  }
+}
+
+/* ───── champion picker (dashboard summary) ───── */
 .champ-legend {
   font-family: var(--mono);
   font-size: 11px;

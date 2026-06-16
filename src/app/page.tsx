@@ -4,11 +4,12 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { toMatchVM } from "@/lib/view";
 import MatchCard from "@/components/MatchCard";
-import ChampionPicker from "@/components/ChampionPicker";
 import SyncButton from "@/components/SyncButton";
+import Flag from "@/components/Flag";
 import { BallDoodle } from "@/components/Doodles";
 import Countdown from "@/components/Countdown";
 import { getT } from "@/lib/i18n.server";
+import { championReactionKey } from "@/lib/champion";
 
 export const dynamic = "force-dynamic";
 
@@ -22,13 +23,15 @@ export default async function Dashboard() {
     include: { championTeam: true },
   });
   if (!me) redirect("/login");
+  // First-time onboarding: send people who haven't picked a champion to the
+  // dedicated selection page.
+  if (me.championTeamId == null) redirect("/champion");
 
-  const [rankAbove, totalUsers, totalMatches, finishedCount, teams] = await Promise.all([
+  const [rankAbove, totalUsers, totalMatches, finishedCount] = await Promise.all([
     prisma.user.count({ where: { points: { gt: me.points } } }),
     prisma.user.count(),
     prisma.match.count(),
     prisma.match.count({ where: { status: "FINISHED" } }),
-    prisma.team.findMany({ orderBy: { odds: "asc" } }),
   ]);
   const rank = rankAbove + 1;
 
@@ -82,13 +85,29 @@ export default async function Dashboard() {
         <p className="lead">{t("dash.lead")}</p>
       </div>
 
-      <ChampionPicker
-        teams={teams.map((tm) => ({ id: tm.id, code: tm.code, name: tm.name, flag: tm.flag, odds: tm.odds }))}
-        current={me.championTeamId}
-        changesLeft={Math.max(0, 2 - me.championChanges)}
-        locked={championLocked}
-        lang={lang}
-      />
+      {me.championTeam && (
+        <div className="champ-box">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: 12, alignItems: "center", minWidth: 0 }}>
+              <Flag code={me.championTeam.code} emoji={me.championTeam.flag} w={40} />
+              <div style={{ minWidth: 0 }}>
+                <div className="champ-lbl">{t("champ.yourchamp")}</div>
+                <div style={{ fontWeight: 800, fontSize: "1.3rem", letterSpacing: "-0.02em" }}>
+                  {me.championTeam.name}
+                </div>
+                <div className="champ-react">{t(championReactionKey(me.championTeam.code))}</div>
+              </div>
+            </div>
+            {championLocked ? (
+              <span className="pill locked">{t("champ.locked")}</span>
+            ) : (
+              <Link href="/champion" className="btn ghost">
+                {t("champ.change")}
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="tiles">
         <div className="tile">
